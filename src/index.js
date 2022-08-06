@@ -104,7 +104,7 @@ app.post('/withdraw', verifyIfexistsAccountCPF, (req, res) => {
 
 app.get('/statement/date', verifyIfexistsAccountCPF, (req, res) => {
   const { customer } = req
-  
+
   const { date } = req.query
 
   const dateFormat = new Date(date + " 00:00")
@@ -116,6 +116,21 @@ app.get('/statement/date', verifyIfexistsAccountCPF, (req, res) => {
   )
 
   return res.json(statement)
+})
+
+app.put('/account', verifyIfexistsAccountCPF, (req, res) => {
+  const { name } = req.body
+  const { customer } = req
+
+  customer.name = name
+  
+  return res.status(201).send()
+})
+
+app.get('/account', verifyIfexistsAccountCPF, (req, res) => {
+  const { customer } = req
+  
+  return res.json(customer)
 })
 
 app.listen(3333)
